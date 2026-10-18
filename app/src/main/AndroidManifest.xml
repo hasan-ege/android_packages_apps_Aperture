@@ -31,6 +31,8 @@
         <package android:name="com.google.android.googlequicksearchbox" />
         <package android:name="org.lineageos.aperture.auto_generated_rro_product__" />
         <package android:name="org.lineageos.aperture.auto_generated_rro_vendor__" />
+        <!-- OpenGlyph recording light switch (SettingsActivity) -->
+        <provider android:authorities="org.openglyph.recordlight" />
     </queries>
 
     <application

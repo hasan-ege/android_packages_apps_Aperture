@@ -115,6 +115,15 @@
             app:title="@string/video_mirror_mode_title"
             app:useSimpleSummaryProvider="true" />
 
+        <!-- Shown only where OpenGlyph provides a recording light (Nothing Phone (3)) -->
+        <SwitchPreference
+            app:iconSpaceReserved="false"
+            app:isPreferenceVisible="false"
+            app:key="record_light"
+            app:persistent="false"
+            app:summary="@string/record_light_summary"
+            app:title="@string/record_light_title" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

@@ -178,4 +178,6 @@
     <string name="video_mirror_mode_off">Kapalı</string>
     <string name="video_mirror_mode_on">Açık</string>
     <string name="video_mirror_mode_on_ffc_only">Yalnızca ön kamera</string>
+    <string name="record_light_title">Kayıt ışığı</string>
+    <string name="record_light_summary">Video kaydederken kameraların yanındaki kırmızı ışık yanıp sönsün</string>
 </resources>
