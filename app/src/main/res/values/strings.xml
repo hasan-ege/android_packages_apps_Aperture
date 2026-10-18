@@ -102,6 +102,8 @@
     <string name="general_header">General</string>
     <string name="photos_header">Photos</string>
     <string name="video_header">Video</string>
+    <string name="record_light_title">Recording light</string>
+    <string name="record_light_summary">Blink the red light next to the cameras while recording video</string>
     <string name="advanced_header">Advanced</string>
 
     <!-- General Preferences -->

@@ -6,6 +6,7 @@
 package org.lineageos.aperture
 
 import android.hardware.input.InputManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -154,6 +155,28 @@ class SettingsActivity : AppCompatActivity(R.layout.activity_settings) {
     }
 
     class RootSettingsFragment : SettingsFragment(R.xml.root_preferences) {
+        /**
+         * The recording light lives in OpenGlyph (Nothing Phone (3)); its provider answers only
+         * this preinstalled app. Without it the switch stays hidden.
+         */
+        private fun setupRecordLight() {
+            val pref = findPreference<SwitchPreference>("record_light") ?: return
+            val resolver = requireContext().contentResolver
+            val uri = Uri.parse("content://$RECORD_LIGHT_AUTHORITY")
+            val current = runCatching {
+                resolver.call(uri, "get", null, null)?.getBoolean("enabled")
+            }.getOrNull() ?: return
+            pref.isChecked = current
+            pref.isVisible = true
+            pref.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, value ->
+                runCatching {
+                    resolver.call(uri, "set", null, Bundle().apply {
+                        putBoolean("enabled", value as Boolean)
+                    })
+                }.isSuccess
+            }
+        }
+
         private val enableZsl by lazy { findPreference<SwitchPreference>("enable_zsl")!! }
         private val photoCaptureMode by lazy {
             findPreference<ListPreference>("photo_capture_mode")!!
@@ -210,6 +233,7 @@ class SettingsActivity : AppCompatActivity(R.layout.activity_settings) {
                     }
             }
             shutterSound?.isVisible = !CameraSoundsUtils.mustPlaySounds
+            setupRecordLight()
             videoStabilization?.isVisible = Build.DEVICE != "metroid"
 
             // Photo capture mode
@@ -385,3 +409,5 @@ class SettingsActivity : AppCompatActivity(R.layout.activity_settings) {
         private val LOG_TAG = SettingsActivity::class.simpleName!!
     }
 }
+
+private const val RECORD_LIGHT_AUTHORITY = "org.openglyph.recordlight"
