@@ -21,6 +21,7 @@ import androidx.core.view.isVisible
 import org.lineageos.aperture.R
 import org.lineageos.aperture.ext.smoothRotate
 import org.lineageos.aperture.models.Rotation
+import org.lineageos.aperture.utils.GlyphCountdown
 
 /**
  * This class manages the looks of the countdown.
@@ -113,6 +114,7 @@ class CountDownView(context: Context, attrs: AttributeSet?) : FrameLayout(
         }
         isVisible = true
         this.listener = listener
+        GlyphCountdown.show(context, sec)
         remainingSecondsChanged(sec)
     }
 
@@ -123,6 +125,7 @@ class CountDownView(context: Context, attrs: AttributeSet?) : FrameLayout(
         if (remainingSeconds > 0) {
             remainingSeconds = 0
             handler.removeMessages(SET_TIMER_TEXT)
+            GlyphCountdown.show(context, 0)
             isInvisible = true
             return true
         }
